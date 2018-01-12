@@ -48,6 +48,8 @@
 
     java -jar $entry.jar
 
+	cat /tmp/cf.log
+
 	rm *.class
 
     exit 0

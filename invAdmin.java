@@ -274,15 +274,13 @@ tdStreamingTest() throws InterruptedException, IOException, XPathExpressionExcep
 	System.out.println( "tdStreamingTest() - at exit" );
 
 	return con.getInputStream();
-
 }
 
 
 public
 boolean
-login() throws Exception, InterruptedException, IOException, XPathExpressionException {
-//////////////////////////////////////////////////////////////////////////////
-
+login() throws Exception, InterruptedException, IOException, XPathExpressionException
+{
     final String USER_AGENT = "Mozilla/5.0";
 
     //	Charset		myCharset = Charset.defaultCharset();
@@ -292,8 +290,8 @@ login() throws Exception, InterruptedException, IOException, XPathExpressionExce
 	String sPwd;
 	
 	try {
-		sUid = myConverter.convert( "/tmp/uid.txt" );
-		sPwd = myConverter.convert( "/tmp/pwd.txt" );
+		sUid = myConverter.convert( "/var/etc/uid.txt" );
+		sPwd = myConverter.convert( "/var/etc/pwd.txt" );
 	}
     catch (Exception e) {
 		log.writeBlankLine();

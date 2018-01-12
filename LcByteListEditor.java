@@ -433,29 +433,31 @@ peekByteVal() {
 	return iResult;
 }////
 
-public void
-statusReport() {
-////////////////
+public
+void
+statusReport()
+{
 	String sMyName =	this.getClass().getName() + ".statusReport()";
 
 	if ( log == null )	{
 		System.out.println( sMyName + " : log file is not open" );
 	}
 
-	log.ifExtreme( "     %s",					sMyName );
+	if ( log.getLoggingLevel() < 70 )
+		return;
 
-	//	log.ifExtreme( "     last read size = %d",	iBytesRead			);
+	log.write( "     %s",					sMyName );
 
-	log.ifExtreme( "     iFocusNdx         = %d",	iFocusNdx			);
-	log.ifExtreme( "     iRemovalBytes     = %d",	iRemovalBytes		);
-	log.ifExtreme( "     llMain.size()     = %d",	llMain.size()		);
-	log.ifExtreme( "     iPrevFocusNdx     = %d",	iPrevFocusNdx		);
-	log.ifExtreme( "     iPrevRemovalBytes = %d",	iPrevRemovalBytes	);
+	//	log.write( "     last read size = %d",	iBytesRead			);
 
-	if ( log.loggingLevelIsExtreme() )	{
-		for ( int src=iFocusNdx; src < llMain.size(); src++ ) {
-			logIfPrintable( (byte) peekChar( src), log);
-		}
+	log.write( "     iFocusNdx         = %d",	iFocusNdx			);
+	log.write( "     iRemovalBytes     = %d",	iRemovalBytes		);
+	log.write( "     llMain.size()     = %d",	llMain.size()		);
+	log.write( "     iPrevFocusNdx     = %d",	iPrevFocusNdx		);
+	log.write( "     iPrevRemovalBytes = %d",	iPrevRemovalBytes	);
+
+	for ( int src=iFocusNdx; src < llMain.size(); src++ ) {
+		logIfPrintable( (byte) peekChar( src), log);
 	}
 }
 
@@ -485,41 +487,39 @@ size() {
 	return (int) llMain.size();
 }////
 
-public boolean
-logIfPrintable( byte b, LLog logIn ) {
+
+public
+boolean
+bIsPrintable( byte b )
+{
 	int		i = (int) b;
 	if ( i < 32 || i > 126 ) {
 		return false;
-	}////
+	}
+	return true;
+}
 
+
+public
+void
+logIfPrintable( byte b, LLog logIn )
+{
 	if ( ! logIn.loggingLevelIsVeryHigh() ) {
-		return false;
-	}////
+		return;
+	}
 
-	String	sChar	= "" + (char) i;
-	boolean	bFound	= false;
+	char c;
+	
+	if ( bIsPrintable( b ) ) {
+		c = (char) b;
+	}
+	else {
+		c = '.';
+	}
 
-/*
-	for ( String sRecType : slRecTypes ) {
-		if ( sRecType.contains( sChar)  ) {
-		bFound = true;
-		}///
-	}////
-
-	for ( String sTicker : slTickers ) {
-		if ( sTicker.contains( sChar)  ) {
-			bFound = true;
-		}////
-	}////
-*/
-
-	if ( bFound ) {
-		System.out.println( "char : < " + (char) i + " > (" + i + ")" );
-		return true;
-	}////
-
-	return false;
-}////
+	System.out.println( "char : " + c + "  (" + b + ")" );
+	return;
+}
 
 public int
 inventory() {
