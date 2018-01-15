@@ -12,7 +12,7 @@ import java.util.*;
 ///////////////////////////////////////////////////////////////////
 public
 class
-invFeed  extends Observable {
+InvFeed  extends Observable {
 ///////////////////////////////////////////////////////////////////
 
 	int		iBaReadBufSize		= 16384;
@@ -33,21 +33,14 @@ invFeed  extends Observable {
 
 	LinkedList<Byte> llFeed		= null;
 
-	invFeed() {
-	////////////////
+	InvFeed() {
 		;
 	}
 
-	invFeed( LLog logIn ) {
-	////////////////////////////
+	InvFeed( LLog logIn ) {
 		log = logIn;	// is this okay?
 	}
 
-	invFeed( LinkedList<Byte> llIn, LLog logIn ) {
-	////////////////////////////////////////////////////////////////////////
-		llFeed		= llIn;
-		log			= logIn;
-	}
 
 public
 void

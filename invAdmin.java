@@ -17,13 +17,10 @@ import org.xml.sax.InputSource;
 import javax.xml.parsers.*;
 import javax.xml.xpath.*;
 
-
-///////////////////////////////////////////////////////////////////
 public
 class
-invAdmin extends Object {
-///////////////////////////////////////////////////////////////////
-
+InvAdmin extends Object
+{
 	boolean	bAllSystemsAreGo	= false;
 
 	boolean	bWeHaveALogFile		= false;
@@ -70,12 +67,12 @@ invAdmin extends Object {
 	String	sPostData = null;
 
 
-	invAdmin() {
+	InvAdmin() {
 	///////////////////
 
 	}
 
-	invAdmin( LLog logIn ) {
+	InvAdmin( LLog logIn ) {
 	/////////////////////////
 	log = logIn;	// is this okay?
 	}

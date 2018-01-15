@@ -9,7 +9,7 @@ import java.util.*;
 
 public
 class
-invParser extends LcByteListEditor
+InvParser extends LcByteListEditor
 {
 	boolean	bAllSystemsAreGo	= false;
 	boolean	bWeOnHold			= true;
@@ -31,13 +31,11 @@ invParser extends LcByteListEditor
 
 	boolean	bParseListModified	= false;
 
-	invParser()
-	{
+	InvParser()		{
 		;
 	}
 
-	invParser( LLog logIn )
-	{
+	InvParser( LLog logIn )		{
 		log = logIn;	// is this okay?
 	}
 
@@ -98,6 +96,8 @@ nextSession()
 }
 
 
+/*
+
 public void
 setLists(  LinkedList<Byte> llFeedIn,  LinkedList<String> llParsedIn  ) {
 
@@ -107,6 +107,8 @@ setLists(  LinkedList<Byte> llFeedIn,  LinkedList<String> llParsedIn  ) {
 
 	//	setByteList(	llFeedIn);	
 }
+
+*/
 
 
 }

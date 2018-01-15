@@ -14,7 +14,7 @@ MyQa99 extends Object {
 public static void
 main(String [] args) throws Exception {
 
-	tdStreamer80			myTest		= new tdStreamer80();
+	TdStreamer80			myTest		= new TdStreamer80();
 
 	UtlStringFromTextFile	myConverter	= new UtlStringFromTextFile();
 

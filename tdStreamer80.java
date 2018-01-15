@@ -1,5 +1,5 @@
 //
-//
+//	TdStreamer
 //
 
 //
@@ -17,11 +17,9 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public
-///////////////////////////////////////////////////////////////////////
 class
-tdStreamer80 implements Observer {
-///////////////////////////////////////////////////////////////////////
-
+TdStreamer80 implements Observer
+{
 	boolean	bAutoGenMode			= false;
 
 	static  Executor	readPool    = Executors.newCachedThreadPool();
@@ -32,11 +30,11 @@ tdStreamer80 implements Observer {
 
 	static	String		sTdSession	= null;
 
-	static	invAdmin	vendor;
+	static	InvAdmin	vendor;
 
-	static	invFeed		feed;
+	static	InvFeed		feed;
 
-	static	invParser	parse;
+	static	InvParser	parse;
 
 	static	dbBasics	store;
 
@@ -66,15 +64,15 @@ run() throws Exception {
 
 	wd40 = new lDate( log );
 
-	feed = new invFeed( llFeed, log) ;
+	feed = new InvFeed( log) ;
 	feed.setGenMode(	bAutoGenMode );
 	if ( ! bAutoGenMode ) {
 		feed.addObserver(	this );
 	}////
 
 
-	parse = new invParser(	log );
-	parse.setLists(			llFeed, llParsed);
+	parse = new InvParser(	log );
+	//	parse.setLists(			llFeed, llParsed);
 	if ( bAutoGenMode ) {
 		wd40.sleep( 45 * 60 );
 		log.ifHigh( "main() : natural exit, after sleep" );
@@ -96,7 +94,7 @@ run() throws Exception {
 				long t = Thread.currentThread().getId();
 				log.ifHigh( "---> cf1 : t=%d",	t	);
 				try {
-					vendor	= new invAdmin( log );
+					vendor	= new InvAdmin( log );
 					vendor.handshake();
 					feed.setInputStream( vendor.tdStreamingTest()	);
 					feed.intake();
