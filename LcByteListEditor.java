@@ -213,32 +213,32 @@ permanentlyRemoveBytes() {
 
 
 public int
-nonChoppedBytesRemaining() {
-//////////////////////////
+nonChoppedBytesRemaining()
+{
     return llMain.size() - iRemovalBytes;
-}////
+}
 
 
 public String
-chopString( int iInLength ) {
-/////////////////////////////
+chopString( int iInLength )
+{
 	String	sMyName = this.getClass().getName() + ".chopString()";
 
 	char[]	caField	= new char[ iInLength ];
 
 	for (	int src=iFocusNdx, dst=0; dst < iInLength; src++, dst++ ) {
 		caField[ dst ]	= peekChar( src );
-	}////
+	}
 	
 	iRemovalBytes	+= iInLength;
 	iFocusNdx		+= iInLength;
 
 	return String.copyValueOf( caField );
-}////
+}
 
 public void
-chopAndCopyChars( int iLengthIn, char[] caIn ) {
-////////////////////////////////////////////////
+chopAndCopyChars( int iLengthIn, char[] caIn )
+{
 	String	sMyName = this.getClass().getName() + ".chopAndCopyChars()";
 
 	int	iSrcMax			= llMain.size();
@@ -255,15 +255,15 @@ chopAndCopyChars( int iLengthIn, char[] caIn ) {
 			iSrc++, iDst++
 		) {
 		caIn[ iDst ]	= peekChar( iSrc );
-	}////
+	}
 
 	iRemovalBytes	+= iLengthIn;
 	iFocusNdx		+= iLengthIn;
-}////
+}
 
 public void
-chopAndCopyBytes( int iLengthIn, byte[] baIn ) {
-////////////////////////////////////////////////
+chopAndCopyBytes( int iLengthIn, byte[] baIn )
+{
 	String	sMyName = this.getClass().getName() + ".chopAndCopyBytes()";
 
 	int	iSrcMax			= llMain.size();
@@ -284,20 +284,20 @@ chopAndCopyBytes( int iLengthIn, byte[] baIn ) {
 
 	iRemovalBytes	+= iLengthIn;
 	iFocusNdx		+= iLengthIn;
-}////
+}
 
 public void
-chopBytes( int iLengthIn ) {
-////////////////////////////
+chopBytes( int iLengthIn )
+{
 	String	sMyName = this.getClass().getName() + ".chopBytes()";
 
 	iRemovalBytes	+= iLengthIn;
 	iFocusNdx		+= iLengthIn;
-}////
+}
 
 public int
-chopInt() {
-///////////
+chopInt()
+{
 	String	sMyName = this.getClass().getName() + ".chopInt()";
 
 	int		iBinFieldSize	= 4;	//	size, in bytes, of this binary type
@@ -319,11 +319,11 @@ chopInt() {
 	iFocusNdx		+= iBinFieldSize;
 
 	return iResult;
-}////
+}
 
 public short
-chopShort() {
-/////////////
+chopShort()
+{
 	String	sMyName = this.getClass().getName() + ".chopShort()";
 
 	int		iBinFieldSize	= 2;	//	size, in bytes, of this binary type
@@ -345,11 +345,11 @@ chopShort() {
 	iFocusNdx		+= iBinFieldSize;
 
 	return shResult;
-}////
+}
 
 public long
-chopLong() {
-////////////
+chopLong()
+{
 	String	sMyName = this.getClass().getName() + ".chopLong()";
 
 	int		iBinFieldSize	= 8;	//	size, in bytes, of this binary type
@@ -371,11 +371,11 @@ chopLong() {
 	iFocusNdx		+= iBinFieldSize;
 
 	return lResult;
-}////
+}
 
 public float
-chopFloat() {
-/////////////
+chopFloat()
+{
 	String	sMyName = this.getClass().getName() + ".chopFloat()";
 
 	int		iBinFieldSize	= 4;	//	size, in bytes, of this binary type
@@ -396,11 +396,11 @@ chopFloat() {
 	iFocusNdx		+= iBinFieldSize;
 
 	return fResult;
-}////
+}
 
 public int
-chopByteVal() {
-///////////////
+chopByteVal()
+{
 	String	sMyName = this.getClass().getName() + ".chopByteVal()";
 
 	int		iResult;
@@ -413,11 +413,11 @@ chopByteVal() {
 	iFocusNdx		+= 1;
 
 	return iResult;
-}////
+}
 
 public int
-peekByteVal() {
-///////////////
+peekByteVal()
+{
 	String	sMyName = this.getClass().getName() + ".peekByteVal()";
 
 	byte	b;
@@ -430,7 +430,7 @@ peekByteVal() {
 	//	log.ifExtreme( "%s : iResult : %d", sMyName, iResult	);
 
 	return iResult;
-}////
+}
 
 public
 void
@@ -461,30 +461,30 @@ statusReport()
 }
 
 public void
-setLogFile( LLog logIn ) {
-//////////////////////////
+setLogFile( LLog logIn )
+{
 	log = logIn;
-}////
+}
 
 public boolean
-bWeHaveALogFile() {
-///////////////////
+bWeHaveALogFile()
+{
 	return true;
-}////
+}
 
 public boolean
-hasBytes() {
-////////////
+hasBytes()
+{
 	if ( llMain.size() > 0 )
 		return true;
 	return false;
-}////
+}
 
 public int
-size() {
-////////
+size()
+{
 	return (int) llMain.size();
-}////
+}
 
 
 public
@@ -521,34 +521,34 @@ logIfPrintable( byte b, LLog logIn )
 }
 
 public int
-inventory() {
-/////////////
+inventory()
+{
 	int i = 0;
 
 	for (byte b : llMain ) {
 		i++;
-	}////
+	}
 
 	return i;
-}////
+}
 
 
 public void
-setByteEdLogFile( String logPathIn ) throws Exception {
-///////////////////////////////////////////////////////
+setByteEdLogFile( String logPathIn ) throws Exception
+{
 	String	sMyName = this.getClass().getName() + ".setLogFile()";
     if ( log != null) {
 		log.close();
-	}////
+	}
 	try {
         log = new LLog();
         log.setLoggingLevel( 99 );
         log.openNewPath( logPathIn );
 		log.write( "\n\n\n" + "New Session" + "\n\n\n"	);
-	}////
+	}
     catch (IOException e) {
         System.out.println( sMyName + " : cannot open the log file" );
-    }////
+    }
 }
 
 

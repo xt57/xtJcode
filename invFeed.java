@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+//
 //	package com.xt57;
+//
 
 import java.io.*;
 import java.util.*;
 
-///////////////////////////////////////////////////////////////////
 public
 class
-InvFeed  extends Observable {
-///////////////////////////////////////////////////////////////////
-
+InvFeed  extends Observable
+{
 	int		iBaReadBufSize		= 16384;
 
 	boolean	bAtEOF				= false;
@@ -45,7 +39,7 @@ InvFeed  extends Observable {
 public
 void
 statusReport() {
-////////////////
+
 	String sMyName =	this.getClass().getName() + ".statusReport()";
 
 	if ( log == null )	{
@@ -61,7 +55,7 @@ statusReport() {
 public
 void
 setGenMode( boolean bModeIn ) {
-///////////////////////////////
+
 	bGenMode = bModeIn;
 }
 
@@ -71,35 +65,34 @@ setGenMode( boolean bModeIn ) {
 public
 void
 setLogFile( LLog logIn ) {
-//////////////////////////
+
 	log = logIn;
 }
 
 public
 boolean
 bWeHaveALogFile() {
-///////////////////
+
 	return true;
 }
 
 public
 void
 setInputStream( InputStream streamIn ) {
-////////////////////////////////////
+
 	streamMain = new DataInputStream( streamIn );
 }
 
 public
 long
 getThreadId()  {
-//////////////////////////////////////////////////////
+
     return (long) Thread.currentThread().getId();
 }
 
 public
 boolean
 readNextRecord() {
-//////////////////
 
 	if ( bGenMode ) {
 		byte[] baTmp = gen();

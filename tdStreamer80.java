@@ -47,9 +47,8 @@ TdStreamer80 implements Observer
 // method definitions begin here
 public
 void
-run() throws Exception {
-////////////////////////
-
+run() throws Exception
+{
     try {
         log = new LLog();
         log.setLoggingLevel( 99 );
@@ -68,7 +67,7 @@ run() throws Exception {
 	feed.setGenMode(	bAutoGenMode );
 	if ( ! bAutoGenMode ) {
 		feed.addObserver(	this );
-	}////
+	}
 
 
 	parse = new InvParser(	log );
@@ -135,9 +134,8 @@ run() throws Exception {
 @Override
 public
 void
-update(Observable obj, Object arg) {
-////////////////////////////////////
-
+update(Observable obj, Object arg)
+{
 	long t = Thread.currentThread().getId();
 
 	int i = (Integer) arg;
@@ -159,12 +157,12 @@ update(Observable obj, Object arg) {
 public
 void
 type3() {
-/////////
+
 	if ( bParseInProgress ) {
 		log.ifHigh( "---> typ3 : busy\n"	);
 		return;
-	}////
-
+	}
+	
 	bParseInProgress = true;
 
 	CompletableFuture<String> cf3
@@ -202,7 +200,6 @@ type3() {
 public
 void
 type5() {
-/////////
 
 	if ( bStoreInProgress ) {
 		log.ifHigh( "---> typ5 : busy\n"	);
@@ -249,7 +246,7 @@ type5() {
 public
 long
 getThreadId()  {
-//////////////////////////////////////////////////////
+
     return (long) Thread.currentThread().getId();
 }
 
@@ -259,7 +256,7 @@ getThreadId()  {
 public
 boolean
 cfLogSetup( LLog logIn ) throws IOException, Exception {
-////////////////////////////////////////////////////////
+
 	System.out.println( "opening the cf-internal log file" );
 	try {
 		logIn.setLoggingLevel( 99 );
