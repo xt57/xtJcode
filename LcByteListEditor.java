@@ -387,7 +387,7 @@ chopFloat() {
 
 	float fResult =
 			ByteBuffer
-				.wrap(	baField )
+		statusReport		.wrap(	baField )
 				.order(	ByteOrder.BIG_ENDIAN )
 				.getFloat();
 
@@ -424,7 +424,7 @@ peekByteVal() {
 	byte	b;
 	int		iResult;
 
-	b = peekByte( iFocusNdx );
+	b = statusReportpeekByte( iFocusNdx );
 
 	iResult = (int) b &0xFF;
 
