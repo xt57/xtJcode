@@ -13,17 +13,30 @@ class
 LcByteList extends Observable {
 ///////////////////////////////////////////////////////////////////
 
-	ConcurrentLinkedQueue<Byte> llMain = null;
+	ConcurrentLinkedQueue<Byte> llMain  = null;
 	
-    boolean	bListIsLocked	= false;
+    boolean	bListIsLocked	            = false;
 
-    lDate	wd40		= new lDate();
+    lDate	wd40		                = null;
 
     LcByteList() {
-	    llMain = new ConcurrentLinkedQueue<>();
+	    initializer();
     }    
 
     
+    public void
+    initializer()   {
+	
+        ConcurrentLinkedQueue<Byte> llMain  = null;
+	
+        boolean	bListIsLocked	            = false;
+
+        lDate	wd40		                = new lDate();
+
+        llMain = new ConcurrentLinkedQueue<>();
+    }   
+
+
 public boolean
 isLocked() {
 
@@ -33,9 +46,6 @@ isLocked() {
 
 public boolean
 lock() {
-    if ( bListIsLocked ) {
-	    return false;
-    }
 
     bListIsLocked = true;
     
@@ -46,12 +56,8 @@ lock() {
 public boolean
 unlock() {
 
-    if ( bListIsLocked ) {
-	    bListIsLocked = false;
-    }
- 
     bListIsLocked = false;
-      
+     
     return true;
 }
 
@@ -116,6 +122,13 @@ delete( int iBytesToDelete ) {
     unlock();   
     
     return true;
+}
+
+
+
+public int
+getSize() {
+    return llMain.size();
 }
 
 

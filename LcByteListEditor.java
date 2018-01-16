@@ -28,12 +28,37 @@ LcByteListEditor extends LcByteList {
 	boolean		bWeHaveALogFile		= false;
 	LLog		log			    	= null;
 
-	lDate		wd40			    = new lDate();
+	lDate		wd40			    = null;
+
+	
+	public void
+	initializer()	{
+
+		calHeartbeat		= null;
+
+		iFocusNdx	    	= 0;
+		iFocus		    	= 0;
+
+		ndx		    		= 0;
+
+		iRemovalBytes	    = 0;
+
+
+		iPrevFocusNdx	    = 0;
+		iPrevRemovalBytes   = 0;
+
+		bWeHaveALogFile		= false;
+		log			    	= null;
+
+		wd40			    = new lDate();
+	}
+
+
 
 
 public boolean
 bXt57ExitHeader() {
-///////////////////
+
 	if ( llMain.size() < 2 ) {
 		return false;
 	}////
@@ -51,7 +76,7 @@ bXt57ExitHeader() {
 
 public boolean
 bHeartbeatHeader() {
-////////////////////
+
 	if ( llMain.size() < 10 ) {
 		return false;
 	}////

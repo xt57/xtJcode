@@ -7,32 +7,53 @@ import java.util.*;
 
 public
 class
-InvFeed  extends Observable
+//		InvFeed  extends Observable
+InvFeed  extends LcByteListEditor
 {
-	int		iBaReadBufSize		= 16384;
+	int		iBaReadBufSize		= 0;
 
 	boolean	bAtEOF				= false;
 	boolean	bGenMode			= false;
 
 	DataInputStream streamMain	= null;
 
-	byte[]	baReadBuf			= new byte[ iBaReadBufSize ];
+	byte[]	baReadBuf			= null;
 
 	int		iBytesRead			= 0;
 
 	boolean	bWeHaveALogFile		= false;
 	LLog	log					= null;
 
-	lDate	wd40				= new lDate();
+	lDate	wd40				= null;
 
-	LinkedList<Byte> llFeed		= null;
+	//	LinkedList<Byte> llFeed		= null;
 
 	InvFeed() {
-		;
+		initializer();
 	}
 
 	InvFeed( LLog logIn ) {
+		initializer();
 		log = logIn;	// is this okay?
+	}
+
+	public void
+	initializer()	{
+		int		iBaReadBufSize		= 16384;
+
+		boolean	bAtEOF				= false;
+		boolean	bGenMode			= false;
+
+		DataInputStream streamMain	= null;
+
+		byte[]	baReadBuf			= new byte[ iBaReadBufSize ];
+
+		int		iBytesRead			= 0;
+
+		boolean	bWeHaveALogFile		= false;
+		LLog	log					= null;
+
+		lDate	wd40				= new lDate();
 	}
 
 
@@ -147,7 +168,8 @@ intake() {
 		if ( iBytesRead > 0 ) {
 
 			for ( int ndx = 0;  ndx < iBytesRead;  ndx++ ) {
-				llFeed.add(		(Byte) baReadBuf[ ndx ]	);
+				//	llFeed.add(		(Byte) baReadBuf[ ndx ]	);
+				llMain.add(		(Byte) baReadBuf[ ndx ]	);
 			}////
 
 			setChanged();
