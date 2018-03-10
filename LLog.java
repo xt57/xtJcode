@@ -6,15 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedList;
 
-//  just a simple comment!
-
 
 public
-///////////////////////////////////////////////////////////////////////
 class
-LLog extends Object {
-///////////////////////////////////////////////////////////////////////
-
+LLog extends Object
+{
     private
 	String          sLogPath        = "/tmp/xt57.log";
     String          sCharSet        = "utf-8";
@@ -27,22 +23,18 @@ LLog extends Object {
 	boolean			bCachedMode		= false;
 
 
-
-
-LLog() throws Exception {
-/////////////////////////
+LLog() throws Exception
+{
     try {
         open( sLogPath );
     }
     catch (IOException e) {
         System.out.println( "log file open error" + e );
     }
-
 }
 
-LLog( String sInPath ) throws Exception {
-/////////////////////////////////////////
-
+LLog( String sInPath ) throws Exception
+{
 	sLogPath = sInPath;
     try {
         open( sLogPath );
@@ -50,32 +42,29 @@ LLog( String sInPath ) throws Exception {
     catch (IOException e) {
         System.out.println( "log file open error (in constr) " + e );
     }
-
 }
+
 
 public
 int
-token() {
-/////////
+token()
+{
 	return 7;
 }
 
 
-
-
 public
 String
-mission() {
-///////////
+mission()
+{
 	return "mi6";
 }
 
 
 public
 void
-open() throws Exception {
-/////////////////////////
-
+open() throws Exception
+{
     try {
         open( sLogPath );
     }
@@ -87,9 +76,8 @@ open() throws Exception {
 
 public
 void
-open( String sInPath ) throws Exception {
-/////////////////////////////////////////
-
+open( String sInPath ) throws Exception
+{
     if ( bIsOpen )
         close();
 
@@ -107,14 +95,12 @@ open( String sInPath ) throws Exception {
     catch (IOException e) {
         System.out.println( "log open error" + e );
     }
-
 }
 
 public
 void
-openNewPath( String sInPath ) throws Exception {
-////////////////////////////////////////////////
-
+openNewPath( String sInPath ) throws Exception
+{
     try {
         close();
         open( sInPath );
@@ -126,9 +112,8 @@ openNewPath( String sInPath ) throws Exception {
 
 public
 void
-close() {
-/////////
-
+close()
+{
     if ( bIsOpen ) {
         pwLog.flush();
         pwLog.close();
@@ -138,8 +123,8 @@ close() {
 
 public
 String
-getStandardPreamble() {
-///////////////////////
+getStandardPreamble()
+{
 	Calendar cCal	= Calendar.getInstance();
 
     SimpleDateFormat ft =
@@ -155,23 +140,23 @@ getStandardPreamble() {
 
 public
 boolean
-terminateLine() {
-/////////////////
+terminateLine()
+{
 	return writeAddToRawEnd( System.lineSeparator()	);
 }
 
 
 public
 boolean
-write( String sInFormat, Object... oInArgs ) {
-//////////////////////////////////////////////
+write( String sInFormat, Object... oInArgs )
+{
     return write( String.format( sInFormat, oInArgs )	);
 }
 
 public
 boolean
-write( String sMsgIn ) {
-////////////////////////
+write( String sMsgIn )
+{
 	writeLeaveRawEnd( sMsgIn );
 	terminateLine();
 	return true;
@@ -179,15 +164,15 @@ write( String sMsgIn ) {
 
 public
 boolean
-writeLeaveRawEnd( String sInFormat, Object... oInArgs ) {
-/////////////////////////////////////////////////////////
+writeLeaveRawEnd( String sInFormat, Object... oInArgs )
+{
     return writeLeaveRawEnd( String.format( sInFormat, oInArgs )	);
 }
 
 public
 boolean
-writeLeaveRawEnd( String sMsgIn ) {
-///////////////////////////////////
+writeLeaveRawEnd( String sMsgIn )
+{
     String pString = getStandardPreamble() + sMsgIn;
 
 	if ( bCachedMode ) {
@@ -203,15 +188,15 @@ writeLeaveRawEnd( String sMsgIn ) {
 
 public
 boolean
-writeAddToRawEnd( String sInFormat, Object... oInArgs ) {
-/////////////////////////////////////////////////////////
+writeAddToRawEnd( String sInFormat, Object... oInArgs )
+{
     return writeAddToRawEnd( String.format( sInFormat, oInArgs )	);
 }
 
 public
 boolean
-writeAddToRawEnd( String sMsgIn ) {
-///////////////////////////////////
+writeAddToRawEnd( String sMsgIn )
+{
     pwLog.print( sMsgIn );
 	pwLog.flush();
 	return true;
@@ -219,8 +204,8 @@ writeAddToRawEnd( String sMsgIn ) {
 
 public
 boolean
-flushTheQueue() {
-/////////////////
+flushTheQueue()
+{
 	while ( llQueue.size() > 0 ) {
 		String	pString	= llQueue.poll();
 		if ( pString == null ) {
@@ -234,8 +219,8 @@ flushTheQueue() {
 
 public
 void
-setCachedMode( boolean bModeIn ) {
-//////////////////////////////////
+setCachedMode( boolean bModeIn )
+{
     bCachedMode = bModeIn;
 }
 
@@ -243,8 +228,8 @@ setCachedMode( boolean bModeIn ) {
 
 public
 void
-setLoggingLevel(int iInLevel) {
-///////////////////////////////
+setLoggingLevel(int iInLevel)
+{
 	if ( iInLevel < 1 ) {
 		iMasterLevel = 0;
 		return;
@@ -261,32 +246,32 @@ setLoggingLevel(int iInLevel) {
 
 public
 void
-addToLoggingLevel(int iAdditionalAmount) {
-//////////////////////////////////////////
+addToLoggingLevel(int iAdditionalAmount)
+{
 	setLoggingLevel( getLoggingLevel() + iAdditionalAmount );
 }
 
 
 public
 void
-subtractFromLoggingLevel(int iAdustment) {
-//////////////////////////////////////////
+subtractFromLoggingLevel(int iAdustment)
+{
 	setLoggingLevel( getLoggingLevel() - iAdustment );
 }
 
 
 public
 int
-getLoggingLevel() {
-///////////////////
+getLoggingLevel()
+{
     return  iMasterLevel;
 }
 
 
 public
 String
-getLoggingLevelAsString() {
-///////////////////////////
+getLoggingLevelAsString()
+{
 	String rpt = "logging level is " + getLoggingLevel();
 	return rpt;
 }
@@ -295,8 +280,8 @@ getLoggingLevelAsString() {
 
 public
 boolean
-loggingLevelIsModerate() {
-//////////////////////////
+loggingLevelIsModerate()
+{
     if ( iMasterLevel > 30 )
         return true;
 	return false;
@@ -305,8 +290,8 @@ loggingLevelIsModerate() {
 
 public
 boolean
-loggingLevelIsHigh() {
-//////////////////////////
+loggingLevelIsHigh()
+{
     if ( iMasterLevel > 50 )
         return true;
 	return false;
@@ -315,8 +300,8 @@ loggingLevelIsHigh() {
 
 public
 boolean
-loggingLevelIsVeryHigh() {
-//////////////////////////
+loggingLevelIsVeryHigh()
+{
     if ( iMasterLevel > 75 )
         return true;
 	return false;
@@ -325,21 +310,18 @@ loggingLevelIsVeryHigh() {
 
 public
 boolean
-loggingLevelIsExtreme() {
-/////////////////////////
+loggingLevelIsExtreme()
+{
     if ( iMasterLevel > 96 )
         return true;
 	return false;
 }
 
 
-
-
-
 public
 boolean
-ifVeryHigh( String sInFormat, Object... oInArgs )  {
-////////////////////////////////////////////////////
+ifVeryHigh( String sInFormat, Object... oInArgs )
+{
     if ( loggingLevelIsVeryHigh()  )
         return write( String.format( sInFormat, oInArgs )	);
     return false;
@@ -350,53 +332,38 @@ ifVeryHigh( String sInFormat, Object... oInArgs )  {
 
 public
 boolean
-ifHigh( String sInFormat, Object... oInArgs ) {
-////////////////////////////////////////////////
+ifHigh( String sInFormat, Object... oInArgs )
+{
 	if ( loggingLevelIsHigh() )
 		return write(String.format(sInFormat, oInArgs));
 	return false;
 }
 
 
-
-
-
 public
 boolean
-ifModerate( String sInFormat, Object... oInArgs )  {
-////////////////////////////////////////////////////
+ifModerate( String sInFormat, Object... oInArgs )
+{
     if ( loggingLevelIsModerate()  )
         return write( String.format( sInFormat, oInArgs )	);
     return false;
 }
 
 
-
-
-
-
 public
 boolean
-ifExtreme( String sInFormat, Object... oInArgs )  {
-///////////////////////////////////////////////////
+ifExtreme( String sInFormat, Object... oInArgs )
+{
     if ( loggingLevelIsExtreme()  )
         return write( String.format( sInFormat, oInArgs )	);
     return false;
 }
 
 
-
-
-
-
-
-
-
-
 public
 boolean
-postThreadId( String sInFormat, Object... oInArgs )  {
-//////////////////////////////////////////////////////
+postThreadId( String sInFormat, Object... oInArgs )
+{
     long tId = Thread.currentThread().getId();
 
     String  sMsg = String.format( sInFormat, oInArgs ) + tId;
@@ -405,13 +372,10 @@ postThreadId( String sInFormat, Object... oInArgs )  {
 }
 
 
-
-
-
 public
 boolean
-postThreadIdToSysOut( String sInFormat, Object... oInArgs )  {
-//////////////////////////////////////////////////////////////
+postThreadIdToSysOut( String sInFormat, Object... oInArgs )
+{
     long tId = Thread.currentThread().getId();
 
     String  sMsg = String.format( sInFormat, oInArgs ) + tId;
@@ -424,8 +388,8 @@ postThreadIdToSysOut( String sInFormat, Object... oInArgs )  {
 
 public
 boolean
-sleepAndLeaveANote( int iMillisIn )  {
-//////////////////////////////////////
+sleepAndLeaveANote( int iMillisIn )
+{
 	write( "napping (%d)", iMillisIn);
 	try {
 	Thread.sleep(	(long) 1000	);
@@ -440,8 +404,8 @@ sleepAndLeaveANote( int iMillisIn )  {
 
 public
 void
-writeBlankLine() {
-///////////////////
+writeBlankLine()
+{
 	write( "" );
 }
 

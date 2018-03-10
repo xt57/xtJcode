@@ -2,8 +2,8 @@
 #
 #
 
-    prj=MyQa99
-    entry=MyQa99
+    prj=MyQa77
+    entry=MyQa77
 
     manifest=manifest.txt
 
@@ -39,7 +39,7 @@
         msg="jar creation failed"
         echo "$msg"     >>   $logFile   2>&1    
         exit 99
-    fi 
+    fi
 
     msg="jar built without incident"
     echo "$msg"     >>   $logFile   2>&1    
@@ -48,9 +48,9 @@
 
     java -jar $entry.jar
 
-	cat /tmp/cf.log
+    cat /tmp/cf.log     >>  /dev/null   2>&1
 
-	rm *.class
+    rm *.class          >>  /dev/null   2>&1
 
     exit 0
 
