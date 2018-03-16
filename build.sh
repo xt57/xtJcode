@@ -33,7 +33,12 @@
 
     #		jar cvfm Xt57jLibQA.jar $manifest  *.class
 
+    jar   cvfe	LUdpClientTut.jar	LUdpClientTut		*.class | grep -iv "^adding:"
+
+    jar   cvfe	LUdpServerTut.jar	LUdpServerTut		*.class | grep -iv "^adding:"
+
     jar   cvfe	${entry}.jar	${entry}		*.class | grep -iv "^adding:"
+
 
     if [ $? -ne 0 ]; then 
         msg="jar creation failed"

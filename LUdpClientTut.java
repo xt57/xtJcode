@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 
-class UDPClient
+class LUdpClientTut
 {
    public static void main(String args[]) throws Exception
    {
@@ -22,3 +22,4 @@ class UDPClient
       clientSocket.close();
    }
 }
+
