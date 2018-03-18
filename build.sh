@@ -33,23 +33,19 @@
 
     #		jar cvfm Xt57jLibQA.jar $manifest  *.class
 
-    jar   cvfe	LUdpClientTut.jar	LUdpClientTut		*.class | grep -iv "^adding:"
+	for name in MyQa77 LUdpClientTut LUdpServerTut MsgNextMsgNum
+		do
+    		jar   cvfe	${name}.jar	${name}		*.class | grep -iv "^adding:"
 
-    jar   cvfe	LUdpServerTut.jar	LUdpServerTut		*.class | grep -iv "^adding:"
+		if [ $? -ne 0 ]; then 
+			msg="jar creation failed"
+			echo "$msg"     >>   $logFile   2>&1    
+			exit 99
+		fi
 
-    jar   cvfe	${entry}.jar	${entry}		*.class | grep -iv "^adding:"
-
-
-    if [ $? -ne 0 ]; then 
-        msg="jar creation failed"
-        echo "$msg"     >>   $logFile   2>&1    
-        exit 99
-    fi
-
-    msg="jar built without incident"
-    echo "$msg"     >>   $logFile   2>&1    
-
-
+		msg="[$name} jar built without incident"
+		echo "$msg"     >>   $logFile   2>&1    
+	done
 
     java -jar $entry.jar
 
