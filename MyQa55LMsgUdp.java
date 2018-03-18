@@ -7,47 +7,8 @@ import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-class LMsgUdp
-{
-      private     Short             siMsgNum;
- 
-      private     Calendar          cCal;
- 
-      private     SimpleDateFormat  ft;
 
-      LMsgUdp()
-      {
-            siMsgNum    = 1;
-           
-            cCal        = Calendar.getInstance();
-            
-            ft          = new SimpleDateFormat ("yyyyMMddHHmmssSSS");
-      }
-
-      public
-      String
-      getNextMsgNum()
-      {
-            String      sReturn;
-
-            String sDateSeg = ft.format( cCal.getTime()	);
-
-            if ( siMsgNum > Short.MAX_VALUE )     {
-                  siMsgNum = 1;
-            }
-
-            sReturn = sDateSeg + String.format ("%07d", siMsgNum);
-
-            siMsgNum++;
-
-            return sReturn;
-      }
-}
-
-
-
-
-class MsgNextMsgNum
+class MyQa55LMsgNum
 {
       private static    Short     siMsgNum;
  
@@ -85,7 +46,10 @@ class MsgNextMsgNum
  
       public static void main(String args[]) throws Exception
       {
-         DatagramSocket serverSocket = new DatagramSocket(9876);
+            srv 
+
+
+            DatagramSocket serverSocket = new DatagramSocket(9876);
             byte[] receiveData = new byte[1024];
             byte[] sendData = new byte[1024];
             while(true)
