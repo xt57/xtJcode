@@ -12,37 +12,27 @@
 import java.net.*;
 
 
-//  this is a comment to track through git
-
-
-
-
-///////////////////////////////////////////////////////////////////
 public
 class
-LUdp {
-///////////////////////////////////////////////////////////////////
-
+LUdp
+{
 	boolean	bWeHaveALogFile		= false;
 	LLog	log					= null;
 
 	lDate	wd40				= new lDate();
 
 	LUdp() {
-	//////
 		;
 	}
 
 	LUdp( LLog logIn ) {
-	////////////////////
 		log			= logIn;
-	}////
+	}
 
 
 public
 String
 sGreeter() {
-////////////
 	return "Hello!";
 }
 
@@ -51,8 +41,9 @@ sGreeter() {
 public
 void
 xClient() {
-///////////
+
 	DatagramSocket  socket = null;
+
 	try {
 		socket					= new DatagramSocket();
 		String requestData		= "'Hello World' via UDP in JAVA";
@@ -65,21 +56,21 @@ xClient() {
 		DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 		socket.setSoTimeout(1000000);
 		socket.receive(reply);
-	}////
+	}
 	catch(SocketTimeoutException e){
 		e.printStackTrace();
-	}////
+	}
 	catch(Exception e){
         e.printStackTrace();
 	}finally{
 		socket.close();
-	}////
-}////
+	}
+}
 
 public
 void
 xServer() {
-///////////
+
 	DatagramSocket  socket	= null;
 	DatagramPacket  request	= null;
 
@@ -101,12 +92,12 @@ xServer() {
 				= new DatagramPacket( response.getBytes(), response.length(), request.getAddress(), request.getPort());
 
 			socket.send( reply );
-		}////
+		}
 		catch(Exception err) {
 			err.printStackTrace();
-		}////
-	}////
-}////
+		}
+	}
+}
 
 
 

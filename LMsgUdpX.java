@@ -1,5 +1,5 @@
 //
-//    MyQa55LMsgUdp
+//    MsgNextMsgNum
 //
 
 import java.io.*;
@@ -7,16 +7,55 @@ import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-
-class MyQa55LMsgUdp
+class LMsgUdpX
 {
+      private     Short             siMsgNum;
+ 
+      private     Calendar          cCal;
+ 
+      private     SimpleDateFormat  ft;
+
+      LMsgUdpX() {
+
+            siMsgNum    = 1;
+           
+            cCal        = Calendar.getInstance();
+            
+            ft          = new SimpleDateFormat ("yyyyMMddHHmmssSSS");
+      }
+
+      public
+      String
+      getNextMsgNum() {
+
+            String      sReturn;
+
+            String sDateSeg = ft.format( cCal.getTime()	);
+
+            if ( siMsgNum > Short.MAX_VALUE )     {
+                  siMsgNum = 1;
+            }
+
+            sReturn = sDateSeg + String.format ("%07d", siMsgNum);
+
+            siMsgNum++;
+
+            return sReturn;
+      }
+}
+
+
+
+
+class MsgNextMsgNum {
+
       private static    Short     siMsgNum;
  
       Calendar          cCal;
  
       SimpleDateFormat  ft;
 
-      MyQa55LMsgUdp()
+      MsgNextMsgNum()
       {
             siMsgNum    = 1;
            
@@ -27,8 +66,8 @@ class MyQa55LMsgUdp
 
       private static
       String
-      getNextMsgNum()
-      {
+      getNextMsgNum()   {
+            
             String      sReturn;
 
             String sDateSeg = ft.format( cCal.getTime()	);
@@ -46,8 +85,7 @@ class MyQa55LMsgUdp
  
       public static void main(String args[]) throws Exception
       {
-
-            DatagramSocket serverSocket = new DatagramSocket(9876);
+         DatagramSocket serverSocket = new DatagramSocket(9876);
             byte[] receiveData = new byte[1024];
             byte[] sendData = new byte[1024];
             while(true)

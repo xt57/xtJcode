@@ -9,40 +9,255 @@ import java.util.Calendar;
 
 class LMsgUdp
 {
-      private     Short             siMsgNum;
+      Boolean           bStatus;
  
-      private     Calendar          cCal;
- 
-      private     SimpleDateFormat  ft;
+      DatagramSocket    socket;
+      InetAddress       inetIpAddress;  
+      int               iPort;
 
-      LMsgUdp()
-      {
-            siMsgNum    = 1;
-           
-            cCal        = Calendar.getInstance();
+      String            sMode; 
+      final String      sSERVER           = "s";
+      final String      sCLIENT           = "c";     
+
+      int               iBufferSize;
+
+      byte[]            baRecv;
+      byte[]            bsSend;
+
+
+      DatagramPacket    packet;
+
+      LMsgUdp()   {     //    constructor
+ 
+            bNormalStatus     = false;
+ 
+            sMode              = sSERVER;
+
+            inetIpAddress     = InetAddress.getByName("localhost");
             
-            ft          = new SimpleDateFormat ("yyyyMMddHHmmssSSS");
+            iPort             = 7789;
+
+            socket            = new DatagramSocket();
+
+            socket.disconnect();
+
+            socket.connect ( inetIpAddrress, iPort );
+
+            if ( socket.isconnected() )   {}
+                 bNormalStatus = true;
+            }     
+
+            iBufferSize       = 1024;
+
+            baRecv            = new byte[ iBufferSize ];
+            bsSend            = new byte[ iBufferSize ];
+
       }
+
 
       public
-      String
-      getNextMsgNum()
-      {
-            String      sReturn;
+      Boolean
+      setIpAddress( String sIpAddressIn )       {
 
-            String sDateSeg = ft.format( cCal.getTime()	);
-
-            if ( siMsgNum > Short.MAX_VALUE )     {
-                  siMsgNum = 1;
+            if ( ! bNormalStatus )  {
+                  return false;
             }
 
-            sReturn = sDateSeg + String.format ("%07d", siMsgNum);
+            bNormalStatus = false;
 
-            siMsgNum++;
+            socket.disconnect();
 
-            return sReturn;
+            inetIpAddress     = InetAddress.getByName( sIpAddressIn );
+
+            socket.connect( intIpAddress, iPort);
+
+            if ( socket.isconnected() )   {
+                 bNormalStatus = true;
+            }
+
+            return bNormalStatus;
       }
  
+
+      public
+      Boolean
+      setPortNumber( int iPortIn ) {
+
+            if ( ! bNormalStatus )  {
+                  return false;
+            }     
+
+            bNormalStatus = false;
+
+            socket.disconnect();
+
+            socket.connect( intIpAddress, iPortIn);
+
+            if ( socket.isconnected() )   {
+                 bNormalStatus = true;
+            }
+
+            return bNormalStatus;
+ 
+
+      public
+      Boolean
+      setRecieveBufferSize( int iBufferSizeIn ) {}
+
+            if ( ! bNormalStatus )
+                  return false;
+
+            bNormalStatus = false;
+
+            baRecv            = new byte[ iBufferSizeIn ];
+
+            iBufferSize       = iBufferSizeIn;
+
+            bNormalStatus = true;
+
+            return bNormalStatus;
+      }
+
+
+      public
+      Boolean
+      setSendBufferSize( int iBufferSizeIn ) {}
+
+            if ( ! bNormalStatus )
+                  return false;
+
+            bNormalStatus = false;
+
+            baSend            = new byte[ iBufferSizeIn ];
+
+            iBufferSize       = iBufferSizeIn;
+
+            bNormalStatus = true;
+
+            return bNormalStatus;
+      }
+
+
+      public
+      Boolean
+      allocNewDatagram()     {
+
+            if ( ! bNormalStatus )
+                  return false;
+
+            bNormalStatus = false;
+
+
+
+            packet = new DatagramPacket(receiveData, receiveData.length);
+
+
+            baSend            = new byte[ iBufferSizeIn ];
+
+            iBufferSize       = iBufferSizeIn;
+
+
+
+
+
+
+            bNormalStatus = true;
+
+            return bNormalStatus;
+      }
+
+
+
+
+
+
+
+
+      public
+      Boolean
+      start()
+      {
+            if ( ! bNormalStatus )
+                  return false;
+
+            bNormalStatus = false;
+
+            if ( sMode == sClient )       {
+                  return true;
+            }
+      
+            preStartLogic();
+
+            run();
+
+            return bNormalStatus;
+      }
+ 
+
+      public
+      Boolean
+      preStartLogic()   {
+      {
+            if ( ! bNormalStatus )
+                  return false;
+
+            bNormalStatus = false;
+
+            if ( sMode == sClient )       {
+                  return true;
+            }
+      
+            return bNormalStatus;
+      }
+ 
+
+ 
+
+      public
+      Boolean
+      run()   {
+      {
+            if ( ! bNormalStatus )
+                  return false;
+
+            bNormalStatus = false;
+
+            if ( sMode == sClient )       {
+                  return true;
+            }
+      
+
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            serverSocket.receive(receivePacket);
+
+            String sentence = new String( receivePacket.getData());
+            System.out.println("RECEIVED: " + sentence);
+
+            InetAddress IPAddress = receivePacket.getAddress();
+            int port = receivePacket.getPort();
+
+            String capitalizedSentence = sentence.toUpperCase();
+            sendData = capitalizedSentence.getBytes();
+
+            DatagramPacket sendPacket =
+                  new DatagramPacket(sendData, sendData.length, IPAddress, port);
+
+            serverSocket.send(sendPacket);
+
+
+
+            return bNormalStatus;
+      }
+
+
+
+
+
+
+
+
+
+
       public static void main(String args[]) throws Exception
       {
          DatagramSocket serverSocket = new DatagramSocket(9876);
@@ -54,7 +269,7 @@ class LMsgUdp
                   serverSocket.receive(receivePacket);
                   String sentence = new String( receivePacket.getData());
 
-                  //    the incoming sting may need to be evaluated later  
+                  //    the incoming string may need to be evaluated later  
 
                   InetAddress IPAddress = receivePacket.getAddress();
                   int port = receivePacket.getPort();
@@ -65,67 +280,8 @@ class LMsgUdp
                   serverSocket.send(sendPacket);
                }
       }
-}
 
 
 
 
-class MsgNextMsgNum
-{
-      private static    Short     siMsgNum;
- 
-      Calendar          cCal;
- 
-      SimpleDateFormat  ft;
-
-      MsgNextMsgNum()
-      {
-            siMsgNum    = 1;
-           
-            cCal        = Calendar.getInstance();
-            
-            ft          = new SimpleDateFormat ("yyyyMMddHHmmssSSS");
-      }
-
-      private static
-      String
-      getNextMsgNum()
-      {
-            String      sReturn;
-
-            String sDateSeg = ft.format( cCal.getTime()	);
-
-            if ( siMsgNum > Short.MAX_VALUE )     {
-                  siMsgNum = 1;
-            }
-
-            sReturn = sDateSeg + String.format ("%07d", siMsgNum);
-
-            siMsgNum++;
-
-            return sReturn;
-      }
- 
-      public static void main(String args[]) throws Exception
-      {
-         DatagramSocket serverSocket = new DatagramSocket(9876);
-            byte[] receiveData = new byte[1024];
-            byte[] sendData = new byte[1024];
-            while(true)
-               {
-                  DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                  serverSocket.receive(receivePacket);
-                  String sentence = new String( receivePacket.getData());
-
-                  //    the incoming sting may need to be evaluated later  
-
-                  InetAddress IPAddress = receivePacket.getAddress();
-                  int port = receivePacket.getPort();
-                  String sMsgNum = getNextMsgNum();   //    get next msg number
-                  sendData = sMsgNum.getBytes();
-                  DatagramPacket sendPacket =
-                        new DatagramPacket(sendData, sendData.length, IPAddress, port);
-                  serverSocket.send(sendPacket);
-               }
-      }
 }
