@@ -15,32 +15,25 @@ public
 class
 LUdpCore
 {
-      boolean              bNormalStatus;
+      boolean           bNormalStatus     = false;
  
       DatagramSocket    socket;
       InetAddress       inetIpAddress;  
       int               iPort;
  
-      int               iBufferSize;
-      
-	  DatagramPacket    packet;
+	boolean           bWeHaveALogFile	= false;
+	LLog              log               = null;
 
-
-	boolean	bWeHaveALogFile		= false;
-	LLog	log					= null;
-
-	lDate	wd40				= new lDate();
+	lDate             wd40              = null;
 
 	LUdpCore()   {     //    constructor
- 
-            bNormalStatus     = false;
- 
+
             try {
                   inetIpAddress     = InetAddress.getByName("localhost");
             }
             catch (Exception e) {}
 
-            iPort             = 7789;
+            iPort                   = 7789;
             
             try {
                   socket            = new DatagramSocket();
@@ -53,7 +46,9 @@ LUdpCore
 
             if ( socket.isConnected() )   {
                  bNormalStatus = true;
-            }     
+            }
+
+ 	      wd40                    = new lDate();               
 	}
 
 	LUdpCore( LLog logIn ) {
@@ -79,7 +74,7 @@ LUdpCore
                   inetIpAddress     = InetAddress.getByName( sIpAddressIn );
             }
             catch (Exception e) {}
-            
+
             socket.connect( inetIpAddress, iPort);
 
             if ( socket.isConnected() )   {
@@ -115,21 +110,36 @@ LUdpCore
 	void
 	StatusReport()    {
 
-		//	bStatus;
- 
-		//	inetIpAddress;
+            System.out.println("LUdpCore : status report");
 
 		//	bWeHaveALogFile
 
 		//	log
 
 		//	wd40
+
+            System.out.println("LUdpCore : IP Address  = " + socket.getInetAddress() );
+
+            System.out.println("LUdpCore : Port Number = " + socket.getPort() );
       }
 
 
 	public static void
 	main(String args[]) throws Exception {
 
+            System.out.println("" );
+
 		LUdpCore	testObj		= new LUdpCore();
+
+            testObj.StatusReport();
+
+            System.out.println("" );
+
+            System.out.println("LUdpCore : changing address to 192.168.1.57" );
+
+            testObj.setIpAddress( "192.168.1.57");
+
+            testObj.StatusReport();
+
 	}
 }

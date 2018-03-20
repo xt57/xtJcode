@@ -33,7 +33,7 @@
 
     #		jar cvfm Xt57jLibQA.jar $manifest  *.class
 
-	for name in MyQa77 LUdpClientTut LUdpServerTut MsgNextMsgNum
+	for name in MyQa77 LUdpCore
 		do
     		jar   cvfe	${name}.jar	${name}		*.class | grep -iv "^adding:"
 
