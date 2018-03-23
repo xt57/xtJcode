@@ -3,7 +3,10 @@
 #
 
     prj=MyQa77
-    entry=MyQa77
+    entry=LInMemDb
+
+    libJars="sqlite-jdbc-3.21.0.jar"
+
 
     manifest=manifest.txt
 
@@ -33,9 +36,11 @@
 
     #		jar cvfm Xt57jLibQA.jar $manifest  *.class
 
-	for name in MyQa77 LUdpCore
+	for name in MyQa77 LUdpCore LInMemDb
 		do
-    		jar   cvfe	${name}.jar	${name}		*.class | grep -iv "^adding:"
+    		#   jar   cvfe	${name}.jar	${name}		*.class sqlite*.jar | grep -iv "^adding:"
+
+   		    jar   cvfe	${name}.jar	${name}		*.class | grep -iv "^adding:"
 
 		if [ $? -ne 0 ]; then 
 			msg="jar creation failed"
@@ -47,7 +52,11 @@
 		echo "$msg"     >>   $logFile   2>&1    
 	done
 
-    java -jar $entry.jar
+    #   java -jar $entry.jar 
+
+    java -classpath ".:${libJars}:${entry}.jar"  ${entry}
+
+
 
     cat /tmp/cf.log     >>  /dev/null   2>&1
 
