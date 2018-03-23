@@ -110,12 +110,13 @@ LInMemDb
       try
             {
             // create a database connection
-            connection = DriverManager.getConnection("jdbc:sqlite:memory");
-           
+            //    connection = DriverManager.getConnection("jdbc:sqlite:memory");
+            connection = DriverManager.getConnection("jdbc:sqlite::memory:");
+
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-            statement.executeUpdate("drop table if exists person");
+            //    statement.executeUpdate("drop table if exists person");
             statement.executeUpdate("create table person (id integer, name string)");
             statement.executeUpdate("insert into person values(1, 'leo')");
             statement.executeUpdate("insert into person values(2, 'yui')");
@@ -129,7 +130,7 @@ LInMemDb
             
             Statement ss = connection.createStatement();    //    ss = SQL statement
             ss.setQueryTimeout(30);  // set timeout to 30 sec.
-            ss.executeUpdate("drop table if exists upd");
+            //    ss.executeUpdate("drop table if exists upd");
             ss.executeUpdate("create table upd (id integer, type string, ip string)");
             ss.executeUpdate("insert into upd values(1, 'log', 'localhost')");
             ss.executeUpdate("insert into upd values(2, 'upload', 'localhost')");
