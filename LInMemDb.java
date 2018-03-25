@@ -37,7 +37,7 @@ LInMemDb
                   Class.forName( "org.sqlite.JDBC" );
 
                   // create an in-memory database connection
-                  db    = DriverManager.getConnection("jdbc:sqlite::memory:");   
+                  db    = DriverManager.getConnection("jdbc:sqlite::memory:?cache=shared");   
                   cmd   = db.createStatement();
                   cmd.setQueryTimeout(7);      
             }
