@@ -39,11 +39,17 @@ LUdpDefaults
 	}
 
 
+      public
+      LInMemDb
+      getDb()    {
+
+            return db;
+      }
 
 	
       public
       void
-      setDefaults()   throws Exception, SQLException  {
+      setDefaults()   { //throws Exception, SQLException  {
 
             String      sCmd;
  
@@ -51,51 +57,25 @@ LUdpDefaults
 
 		db    = new LInMemDb();
 
-            db.StatusReport();
-  
-
             sCmd = "create table " + "udpDefaults" + " ( type string, ip string, port string)";
             db.build( sCmd );
 
 
-            db.build( "insert into    udp values  ( 'log',        'localhost',      7755  )"    );
-            db.build( "insert into    udp values  ( 'upload',     'localhost',      7757  )"    );
-
-            /*
-
-            try
-                  {
-                  //    t.exec( "drop table if exists upd");      // if perm form of storage
-
-                  sCmd = "create table " + "udpDefaults" + " ( type string, ip string, port string)";
-                  db.build( sCmd );
-
-
-                  db.build( "insert into    udp values  ( 'log',        'localhost',      7755  )"    );
-                  db.build( "insert into    udp values  ( 'upload',     'localhost',      7757  )"    );
-            }
-            catch( SQLException e )
-                  {
-                  System.err.println( e.getMessage()  );
-                  System.exit (39 ); 
-            }
-            //try/catch
-            
-            */
-
+            db.build( "insert into    udpDefaults values  ( 'log',        'localhost',      7755  )"    );
+            db.build( "insert into    udpDefaults values  ( 'upload',     'localhost',      7757  )"    );
       }
 
 
 
 	public
 	void
-	StatusReport()  throws Exception, ClassNotFoundException    {
+	statusReport()  throws Exception, ClassNotFoundException    {
 
             System.out.println("LUdpPacket : status report");
 
             try
                   {
-                  ResultSet myResult = db.exec (       "select * from udp" );
+                  ResultSet myResult = db.exec (       "select * from udpDefaults" );
 
                   while( myResult.next()  )  {
 
@@ -125,6 +105,6 @@ LUdpDefaults
 
             System.out.println("LUdpDefaults : testing begins here" );
 
-            t.StatusReport();
+            t.statusReport();
 	}
 }

@@ -10,15 +10,26 @@
 import java.io.*;
 import java.net.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+
 
 public
 class
 LUdp
 {
-      Boolean           bStatus;
+      Boolean           bNormalStatus;
  
-      DatagramSocket    socket;
-      InetAddress       inetIpAddress;  
+	  DatagramSocket    socket;
+	  
+	  InetAddress       inetIpAddress;
+      String			sIpAddress; 	  
+
       int               iPort;
 
       String            sMode; 
@@ -32,6 +43,9 @@ LUdp
 
       DatagramPacket    packet;
 
+	LUdpDefaults		defs  				= null;
+
+
 
 	boolean	bWeHaveALogFile		= false;
 	LLog	log					= null;
@@ -39,40 +53,58 @@ LUdp
 	lDate	wd40				= new lDate();
 
 
+
+	LUdp()   {     //    constructor
+ 
+			bNormalStatus     = false;
+			
+			try
+				{
+				defs = new LUdpDefaults();
+				defs.setDefaults();
+
+				sMode			= sSERVER;
+
+				sIpAddress		= "localhost";
+				inetIpAddress	= InetAddress.getByName(	sIpAddress );
+
+				iPort			= 7789;
+	
+				socket			= new DatagramSocket();
+	
+				socket.disconnect();
+	
+				socket.connect ( inetIpAddress, iPort );
+	
+				if ( socket.isConnected() )   {
+					 bNormalStatus = true;
+				}     
+	
+				iBufferSize       = 1024;
+	
+				baRecv            = new byte[ iBufferSize ];
+				bsSend            = new byte[ iBufferSize ];			
+			}
+			catch( Exception e )
+				{
+				System.err.println( e.getMessage()  );
+				System.exit (39 ); 
+			}
+
+
+	}
+
+
+
 	LUdp( LLog logIn ) {
 
-		LUdp();
+		this();
 
 		log			= logIn;		
 	}
 
 
-	LUdp()   {     //    constructor
- 
-            bNormalStatus     = false;
- 
-            sMode              = sSERVER;
-
-            inetIpAddress     = InetAddress.getByName("localhost");
-            
-            iPort             = 7789;
-
-            socket            = new DatagramSocket();
-
-            socket.disconnect();
-
-            socket.connect ( inetIpAddrress, iPort );
-
-            if ( socket.isconnected() )   {}
-                 bNormalStatus = true;
-            }     
-
-            iBufferSize       = 1024;
-
-            baRecv            = new byte[ iBufferSize ];
-            bsSend            = new byte[ iBufferSize ];
-	}
-
+/*
 
       public
       Boolean
@@ -91,7 +123,8 @@ LUdp
             socket.connect( intIpAddress, iPort);
 
             if ( socket.isconnected() )   {
-                 bNormalStatus = true;
+				bNormalStatus = true;
+				sIpAddress	= sIpAddressIn;	 
             }
 
             return bNormalStatus;
@@ -142,7 +175,7 @@ LUdp
       Boolean
       setSendBufferSize( int iBufferSizeIn ) {}
 
-            if ( ! bNormalStatus )
+            if ( ! bNormalStatus				sIpAddress		= "localhost"; )
                   return false;
 
             bNormalStatus = false;
@@ -330,17 +363,59 @@ xServer() {
 		catch(Exception err) {
 			err.printStackTrace();
 		}
-	}
+
+      int               iPort;	}
 }
 
+*/
+
+	public
+	void
+	statusReport() throws Exception, ClassNotFoundException {
+
+		System.out.println("LUdp : status report");
+
+		System.out.println("LUdp : defaults values");
+
+		try {
+			ResultSet myResult = defs.getDb().exec("select * from udpDefaults");
+
+			while (myResult.next()) {
+
+				// read the result set
+				System.out.println("type = "	+ myResult.getString("type"));
+				System.out.println("ip = "		+ myResult.getString("ip"));
+				System.out.println("port = "	+ myResult.getString("port"));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			System.exit(39);
+		}
+		//try/catch   
+
+		System.out.println("live IP   = "	+ sIpAddress	);
+		System.out.println("live Port = "	+ iPort			);		
+		
+
+
+
+	}
 
 
 
 
+	public static void main(String args[]) throws Exception
+	{
+		 
+		LUdp	t = new LUdp();
+		
+		t.statusReport();
 
-      public static void main(String args[]) throws Exception
-      {
-         DatagramSocket serverSocket = new DatagramSocket(9876);
+		System.exit( 0 );
+
+		/*
+
+		DatagramSocket serverSocket = new DatagramSocket(9876);
             byte[] receiveData = new byte[1024];
             byte[] sendData = new byte[1024];
             while(true)
@@ -358,10 +433,160 @@ xServer() {
                   DatagramPacket sendPacket =
                         new DatagramPacket(sendData, sendData.length, IPAddress, port);
                   serverSocket.send(sendPacket);
-               }
-      }
+			   }
+		
+		*/
+
+	}
 
 
 
 
 }
+
+
+
+/*
+
+
+
+//
+//  LUdpDefaults
+//
+
+//	package net.xt57;
+
+import java.io.*;
+import java.net.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+public
+class
+LUdpDefaults
+{
+      boolean           bNormalStatus     =             System.out.println("" );
+
+		LUdpDefaults      t = new LUdpDefaults();
+
+            t.setDefaults();
+
+            System.out.println("LUdpDefaults : testing begins here" );
+
+            t.StatusReport();false;
+ 
+      LInMemDb          db                = null;
+
+	lDate             wd40              = null;
+
+      LLog              log               = null;
+
+
+	LUdpDefaults()   {                  //    constructor
+
+  	                  wd40        = new lDate();               
+	}
+
+	LUdpDefaults( LLog logIn ) {
+
+                        this();
+		            log         = logIn;		
+	}
+
+
+
+	
+      public
+      void
+      setDefaults()   throws Exception, SQLException  {
+
+            String      sCmd;
+ 
+            System.out.println("" );
+
+		db    = new LInMemDb();
+
+            db.StatusReport();
+  
+
+            sCmd = "create table " + "udpDefaults" + " ( type string, ip string, port string)";
+            System.out.println("" );
+
+		LUdpDefaults      t = new LUdpDefaults();
+
+            t.setDefaults();
+
+            System.out.println("LUdpDefaults : testing begins here" );
+
+            t.StatusReport();            db.build( sCmd );
+
+
+            db.build( "insert into    udpDefaults values  ( 'log',        'localhost',      7755  )"    );
+            db.build( "insert into    udpDefaults values  ( 'upload',     'localhost',      7757  )"    );
+
+
+
+		}
+
+
+
+		public
+		void
+		StatusReport()  throws Exception, ClassNotFoundException    {
+	
+				System.out.println("LUdpPacket : status report");
+	
+				try
+					  {
+					  ResultSet myResult = db.exec (       "select * from udpDefaults" );
+	            System.out.println("" );
+
+		LUdpDefaults      t = new LUdpDefaults();
+
+            t.setDefaults();
+
+            System.out.println("LUdpDefaults : testing begins here" );
+
+            t.StatusReport();
+					  while( myResult.next()  )  {
+	
+							// read the result set
+							System.out.println("type = "  + myResult.getString("type")  );
+							System.out.println("ip = "    + myResult.getString("ip")    );                
+							System.out.println("port = "  + myResult.getString("port")  );  
+					  }
+				}
+				catch( SQLException e )
+					  {
+					  System.err.println( e.getMessage()  );
+					  System.exit (39 ); 
+				}
+				//try/catch    
+		  }
+	
+	
+		public static void
+		main(String args[]) throws Exception {
+	
+				System.out.println("" );
+	
+			LUdpDefaults      t = new LUdpDefaults();
+	
+				t.setDefaults();
+	
+				System.out.println("LUdpDefaults : testing begins here" );
+	
+				t.StatusReport();
+		}
+	}
+	
+
+
+
+
+*/

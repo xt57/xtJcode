@@ -2,9 +2,6 @@
 #
 #
 
-    prj=MyQa77
-    entry=LInMemDb
-
     libJars="sqlite-jdbc-3.21.0.jar"
 
 
@@ -36,7 +33,7 @@
 
     #		jar cvfm Xt57jLibQA.jar $manifest  *.class
 
-	for name in MyQa77 LUdpCore LInMemDb
+	for name in MyQa77 LUdpCore LInMemDb LUdpDefaults LUdp
 		do
     		#   jar   cvfe	${name}.jar	${name}		*.class sqlite*.jar | grep -iv "^adding:"
 
@@ -54,8 +51,11 @@
 
     #   java -jar $entry.jar 
 
-    java -classpath ".:${libJars}:${entry}.jar"  ${entry}
 
+	for name in LInMemDb LUdpDefaults LUdp
+		do
+        java -classpath ".:${libJars}:${name}.jar"  ${name}
+    done
 
 
     cat /tmp/cf.log     >>  /dev/null   2>&1

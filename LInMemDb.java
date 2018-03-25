@@ -37,7 +37,7 @@ LInMemDb
                   Class.forName( "org.sqlite.JDBC" );
 
                   // create an in-memory database connection
-                  db    = DriverManager.getConnection("jdbc:sqlite::memory:?cache=shared");   
+                  db    = DriverManager.getConnection("jdbc:sqlite:file::memory:?cache=shared");   
                   cmd   = db.createStatement();
                   cmd.setQueryTimeout(7);      
             }
@@ -52,7 +52,7 @@ LInMemDb
                   //    throw here
             }               
             
-            wd40        = new lDate();   
+            wd40  = new lDate();   
 	}
 
 	LInMemDb( LLog logIn ) {
@@ -102,7 +102,7 @@ LInMemDb
 
 	public
 	void
-	StatusReport()    {
+	statusReport()    {
 
             System.out.println("LInMemDb : status report");
       }
@@ -117,26 +117,24 @@ LInMemDb
 
 		LInMemDb	db    = new LInMemDb();
 
-            db.StatusReport();
-
             System.out.println( "" );
 
             System.out.println("LInMemDb : testing begins here" );
 
-            db.StatusReport();
+            db.statusReport();
   
             try
                   {
                   //    t.exec( "drop table if exists upd");      // if perm form of storage
 
-                  sCmd = "create table " + "udp" + " ( type string, ip string, port string)";
+                  sCmd = "create table " + "udpDefaults" + " ( type string, ip string, port string)";
                   db.build( sCmd );
 
 
-                  db.build( "insert into    udp values  ( 'log',        'localhost',      7755  )"    );
-                  db.build( "insert into    udp values  ( 'upload',     'localhost',      7757  )"    );
+                  db.build( "insert into    udpDefaults values  ( 'log',        'localhost',      7755  )"    );
+                  db.build( "insert into    udpDefaults values  ( 'upload',     'localhost',      7757  )"    );
 
-                  ResultSet myResult = db.exec (       "select * from udp" );
+                  ResultSet myResult = db.exec (       "select * from udpDefaults" );
  
                   while( myResult.next()  )  {
 
